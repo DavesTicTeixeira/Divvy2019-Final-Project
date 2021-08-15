@@ -15,6 +15,8 @@ It includes:
   The files will be identified by PT or ENG
   
  Divvy 2019 Data Analisys Project
+ 
+ You can check the webpage outputp [here](https://davesticteixeira.github.io/Divvy2019-Final-Project/divvy_final_report_eng.html)
   
   ===============================================================================
   
