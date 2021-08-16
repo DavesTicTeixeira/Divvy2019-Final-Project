@@ -2,9 +2,7 @@
 title: "Divvy Bikes 2019 Data Report"
 author: "David Teixeira"
 date: "8/9/2021"
-output:
-  pdf_document: default
-  html_document: default
+output: html_document
 ---
 <style>
 body {
@@ -35,6 +33,19 @@ function(v) {
 options(scipen = 999999)
 
 ```
+## QUEM SOU EU
+
+David Alexandre Ferreira Teixeira
+
+Junior Data Analyst
+
+[Linkedin](https://www.linkedin.com/in/davealexteixeira/)
+[Github](https://github.com/DavesTicTeixeira)
+Email: davesticteixeira@gmail.com
+
+Atualmente estou acumulando experiência em análise de dados e no primeiro ano da UNI em Ciências Ambientais.
+
+Se desejar entrar em contato comigo, por favor, utilize o e-mail fornecido.
 
 ## DIVVY BIKES
 **UM BREVE OLHAR SOBRE A EMPRESA**
@@ -47,21 +58,21 @@ options(scipen = 999999)
 
   Visite [Divvy Bikes Chicago](https://www.divvybikes.com/)
 
-## GOALS
-**WHAT I'M TRYIN TO ACHIEVE**
+## METAS
+**QUAIS SÃO OS OBJECTIVOS**
 
-  This presentation serves as a portfolio case for the [Google Data Analytics - Professional Certificate](https://www.coursera.org/lecture/foundations-data/welcome-to-the-google-data-analytics-certificate-aA1Wv).
+  Esta apresentação serve como um trabalho de portfólio para o [Google Data Analytics - Certificado Profissional] (https://www.coursera.org/lecture/foundations-data/welcome-to-the-google-data-analytics-certificate-aA1Wv) .
   
-  Design marketing strategies aimed at converting casual riders into annual members. 
+  O Departamento de Marktiing tem como objectivo aconverter ciclistas casuais em membros anuais.
   
-  For that I was tasked with answering the following.
+  Para isso, fui incumbido de responder ao seguinte.
   
-  **How do annual members and casual riders use Cyclist bikes differently?**
+  ** Como os membros anuais e os ciclistas casuais usam as bicicletas Divvy de maneira diferente? **
   
-  My goal is to answer the question trough the data provided and come up with ideas on to converting riders.
+  Meu objetivo é responder à pergunta por meio dos dados fornecidos e sugerir ideias sobre a conversão de ciclistas.
   
-## THE DATA
-**ABOUT THE DATA USED**
+## OS DADOS
+**SOBRE OS DADOS UTILIZADOS**
 
 ```{r include=FALSE}
 colnames_list <- colnames(df)
@@ -69,42 +80,42 @@ number_obs_df <- nrow(df)
 number_of_columns_df <- length(df)
 ```
 
-  The data available for this project is available at https://divvy-tripdata.s3.amazonaws.com/index.html.
+  Os dados disponíveis para este projeto estão disponíveis em https://divvy-tripdata.s3.amazonaws.com/index.html.
   
-  The chosen year was 2019.
+  O ano escolhido foi 2019.
   
-  Close to 4 million (`r number_obs_df`) observations in `r number_of_columns_df` columns.
+  Perto de 4 milhões (`r number_obs_df`) observações em colunas` r number_of_columns_df`.
   
-  Names of the columns:
+  Nomes das colunas:
   
   **`r colnames_list`**
   
 ## INDEX
-**WHAT ARE WE GONNA SEE**
+**O QUE VAMOS VER **
   
-  We will be looking at general population before we move on to look at behavior of the subscribers and then the casual.
+  Vamos observar a população em geral antes de passarmos para o comportamento dos assinantes e, em seguida, o casual.
   
-  We will look at their differences based on numbers and make assumptions on how and why they use the service.
+  Analisaremos suas diferenças com base em números e faremos suposições sobre como e por que usam o serviço.
   
-  This will answer the main question.
+  Isso responderá à pergunta principal.
   
-  > How are they different?
+  > Como eles são diferentes?
   
-  And in the end I will offer some actions in order to solve the secondary problem.
+  E no final irei oferecer algumas ações a fim de resolver o problema secundário.
   
-  > How to turn casual riders in to subscribers.
+  > Como transformar passageiros casuais em assinantes.
   
-  In the appendix of this presentation you will be able to look at my code.
+  No apêndice desta apresentação, poderá ver meu código.
   
-  The raw code in R and the Markdown Code that made this report.
+  O código bruto em R e o Código Markdown que produziu este relatório.
   
-  This means that everything that is represented here will be reproducible.
+  Isso significa que tudo o que é apresentado aqui será reproduzível.
   
-### DIVVY CLIENTS
-**Let's look at general population**
+### CLIENTES DIVVY
+** Observação à população em geral **
 
- - In 2019 there where **`r nrow(df)`** individual rides all over Chicago.
- - There's a noticeable trend towards the summer months with a peak around the month of August.
+ - Em 2019, foram registadas **`r nrow (df)` ** viagens individuais por toda Chicago.
+ - Há uma tendência notável para os meses de verão com pico por volta do mês de Agosto.
  
  
 ```{r Passenger Trend, echo=FALSE}
@@ -118,15 +129,15 @@ day_tri_cum %>%
 
 ```
 
-**Total Rides per Month showing a peak in August**
+**Total de viagens por mês com pico em agosto **
 ```{r include=FALSE}
 mean_trip <- round(mean(bike_trip$trip),2)
 mode_trip <- getmode(bike_trip$trip)
 ```
 
- - The mean trip in 2019 was **`r mean_trip` minutes** but the most usual time was actually **`r mode_trip` minutes.**
+ -A viagem média em 2019 foi de **`r mean_trip` minutos **, mas o tempo mais comum foi, na verdade, **` r mode_trip` minutos **
  
-  - The top 10 Starting and End Stations where:
+  - As 10 principais estações iniciais e finais:
 
 ```{r Top 10 Stations, echo=FALSE, fig.show="hold", out.width="50%"}
 
@@ -135,7 +146,7 @@ head(arrange(top_10_stations_popgen_start, desc(Rides)), n = 10)
 head(arrange(top_10_stations_popgen_end, desc(Rides)), n = 10)
 
 ```
- - Total Subscribers vs Casual Riders
+- Total de assinantes vs ciclistas casuais
  
 ```{r Subscribers vs Customers, echo=FALSE}
 
@@ -148,11 +159,11 @@ ggplot(subs_vs_cust, aes(x="", y=Freq, fill=Riders), color = "white") +
 
 ```
  
-**More than 3 times Subscribers versus Customers**
+**Mais de 3 vezes assinantes versus clientes casuais **
 
 
-### DIVVY SUBSCRIBERS
-**Let's take a look at Subscribers subset**
+### DIVVY ASSINANTES
+**Vamos observar o subconjunto de assinantes **
 
 ```{r subscriber total rides per season, echo=FALSE}
 
@@ -165,17 +176,17 @@ bike_trip_subs_season %>%
 
 ```
   
-  - As we can see from the representation above, the original trend towards the summer maintains.
+ - Como podemos ver na representação acima, a tendência original para o verão mantém-se.
   
 ```{r include=FALSE}
 mean_trip <- round(mean(bike_trip_subs$trip),2)
 mode_trip <- getmode(bike_trip_subs$trip)
 ```
 
- - The mean trip in 2019 was **`r mean_trip` minutes** and the most usual time was **`r mode_trip` minutes.**
+ - A viagem média em 2019 foi **`r mean_trip` minutos ** e o tempo mais comum foi **`r mode_trip` minutos. **
 
 
-**Let's look at the summer months, as they are the top season**
+**Vejamos os meses de verão, pois são a temporada alta **
 
 ```{r weekdays summer subs, echo=FALSE}
 
@@ -196,7 +207,7 @@ bike_trip_subs_summer_weekdays %>%
 ```
  
  
- **It is somewhat visible a downward trend towards the weekend. Being weekend the least popular days.** 
+ **É visível uma tendência de queda em direção ao fim de semana. Sendo o fim de semana os dias menos populares. **
 
 ```{r summer weekdays, echo=FALSE, fig.show="hold", out.width="50%"}
 
@@ -227,12 +238,12 @@ bike_trip %>%
 ```
 
 
-**By looking at the hour usage on weekdays and then on Tuesdays we can see that the rush hour, morning and afternoon is the most used time of the day for subscribers.**
+**Observando o uso por hora nos dias de semana e depois às terças-feiras, podemos ver que a hora de ponta, manhã e tarde, é o horário do dia mais usado pelos assinantes. **
 
 
 
-### DIVVY NON SUBSCRIBERS
-**Let's move on to casual riders usage of Divvy Bikes**
+### DIVVY CLIENTES CASUAIS
+**Vamos prosseguir para os clientes casuais de bicicletas Divvy **
 
 ```{r Casual Riders per Season, echo=FALSE}
 
@@ -250,7 +261,7 @@ bike_trip %>%
 
 
 
-**Here again we can see with no surprise that the best time of the year is the Summer months**
+**Aqui, novamente, podemos ver sem nenhuma surpresa que a melhor época do ano são os meses de verão **
 
 ```{r echo=FALSE}
 
@@ -270,7 +281,7 @@ bike_trip %>%
 
 
 
-**Here we start to see something different, casual riders seem to prefer the weekends and not the weekdays.**
+**Aqui começamos a ver algo diferente, os ciclistas casuais parecem preferir os fins de semana e não os dias de semana. **
 
 ```{r Casuals on Weekends summer months, echo = FALSE, fig.show="hold", out.width="50%"}
 
@@ -301,10 +312,10 @@ bike_trip %>%
 
 ```
 
-**Here we can see that they also prefer different hours of the day when it comes to ride. Casuals do share the late rush hour but they ride all afternoon in mass.**
+** Aqui podemos ver que eles também preferem horários diferentes do dia quando se trata de pedalar. Os casuais compartilham a hora de ponta, mas viajam a tarde inteira em massa. **
 
-### DIVVY COMPARISON
-**HOW ARE SUBSCRIBERS DIFFERENT FROM CASUALS?**
+### DIVVY COMPARAÇÃO
+**COMO É QUE OS CICLISTAS ASSINANTES SÃO DIFERENTES DOS CASUAIS? **
 
 ```{r How are they different 1 , echo = FALSE, fig.show="hold", out.width="50%"}
 
@@ -334,7 +345,7 @@ bike_trip %>%
 
 
 
-**This is our first finding: Subscribers prefer the weekdays, Casuals prefer the weekends.**
+**Esta é a nossa primeira descoberta: os assinantes preferem os dias de semana, os casuais preferem os fins de semana. **
 
 
 
@@ -368,7 +379,7 @@ bike_trip %>%
 
 
 
-**This is our second difference between them. Here we can observe two distinct peaks for Subscribers and only major for Casual Riders.**
+**Esta é a nossa segunda diferença entre eles. Aqui, podemos observar dois picos distintos para assinantes e apenas um unico pico para passageiros casuais. **
 
 
 
@@ -402,7 +413,7 @@ bike_trip %>%
 ```
 
 
-**But if we look at weekends only we can say that Subscriber do act like Casual riders**
+**Mas se olharmos apenas para os fins de semana, podemos dizer que o Assinante age como um passageiro casual **
 
 ```{r prefered stations for subs and cus, echo=FALSE}
 
@@ -427,65 +438,69 @@ colnames(xy) <- c("Subs_Fav_Sattion", "Total_Subs", "Cust_Fav_Station", "Total_C
 knitr::kable(xy)
 
 ```
-**In terms of stations we can see as well that they do have their unique choices.**
+**Em termos de estações, podemos ver também que eles têm suas opções exclusivas. **
 
-### DIVVY COMPARISON
-**HOW ARE SUBSCRIBERS DIFFERENT FROM CASUALS?**
+### DIVVY QUESTÃO NUMERO 1
+**COMO OS ASSINANTES SÃO DIFERENTES DOS CASUAIS? **
 
-So we can definitely conclude that based on the data available they do act different but only when it comes to weekdays vs weekends, and the time of the day chosen for riding. Which would imply that they probably have different reasons to use the bicycle.
+Portanto, podemos concluir definitivamente que, com base nos dados disponíveis, eles agem de forma diferente, mas apenas quando se trata de dias da semana versus fins de semana, e a hora do dia escolhida para pedalar. O que implicaria que eles provavelmente têm motivos diferentes para usar a bicicleta.
 
-Those are their main differences. And off course as we have seen above their choice of stations do diverge as well.
+Essas são suas principais diferenças. E, claro, como vimos acima, sua escolha de estações também diverge.
 
-### CONCLUSIONS AND SUGESTIONS
-**HOW CAN WE TURN CASUALS INTO SUBSCRIBERS?**
+### CONCLUSÕES E SUGESTÕES
+**COMO PODEMOS TRANSFORMAR CASUAIS EM ASSINANTES? **
 
-This was the second problem/question to answer. In order to be completely honest, the data do show some aspects of the type of riders, but one can only assume without asking.
+Este foi o segundo problema / pergunta a ser respondido. Para ser totalmente honesto, os dados mostram alguns aspectos do tipo de ciclista, mas só se pode supor.
 
-My recommendation would be go out and survey the clients and find out their reasons.
+Minha recomendação seria sair e pesquisar os clientes e descobrir seus motivos.
 
-Nonetheless we can say (theoretical) that since there are a peak towards the summer, one could offer a simple summer pass, from June to August. 
+No entanto, podemos dizer (teóricamente) que devido ao pico no verão, pode-se oferecer um simples passe de verão, de Junho a Agosto.
 
-Would they quit after that, maybe not. 
+Eles desistiriam depois disso? Talvez não!
 
-If we look at the data that is available her we can see a that the summer trend do extend towards the Autumn. 
+Se olharmos aos dados que estão disponíveis neles podemos ver que a tendência do verão se estende até ao outono.
 
-That's why after the Special Summer Pass one would be offered a full year subscription for the next 9 months with a special discount on what they already had payed for the Special Summer Pass.
+É por isso que, após o Passe Especial de Verão, seria oferecida uma assinatura de um ano inteiro pelos próximos 9 meses com um desconto especial equivalente ao o que já havia pago pelo Passe Especial de Verão.
 
-In this logic, one would first go for a "test drive" and then would have a supposed 25% discount on deciding to stay on because Autumn is still a nice ride in Chicago.
+Nessa lógica, primeiro fariam um "test drive" e depois teriam um suposto desconto de 25% na decisão de ficar porque o Outono ainda dá um belo passeio em Chicago.
 
-Other steps could be taken into further study's if more data is made available.
+Outras etapas podem ser tomadas em estudos adicionais se mais dados forem disponibilizados.
 
-If it's true (in data), that one person would be more healthy just because of riding a bicycle 15 min on average per day.
+Se for verdade (baseado em dados), uma pessoa seria mais saudável só por andar de bicicleta 15 minutos em média por dia.
 
-One could say to employers in the area, support and offer Divvy Subscriptions to your employees and they will be less absent from work due to the fact that their health would improve and they would save money.
+Poder-se-ia dizer aos empregadores da área, apoiem e ofereçam Subscrições Divvy aos vossos funcionários e eles ficarão menos ausentes do trabalho porque a sua saúde melhoraria e assim poupariam dinheiro.
 
-Campaigning people on the fact that by subscribing to divvy and riding they would be healthier, help the planet, get better summers and winter and save on their own health bills. A win win situation.
+Fazendo campanha para as pessoas que, ao se inscreverem em divvy e usando, elas seriam mais saudáveis, ajudariam o planeta, teriam melhores verões e inverno e economizariam nas próprias contas de saúde. Uma situação vantajosa para todos.
 
-## BEFORE YOU GO
-**A NOTE ON THE PROJECT**
+## ANTES DE TERMINAR
+**UMA NOTA SOBRE O PROJETO **
 
-Just like in the first preliminary presentation I would like to finish with some notes on the project and a thank you.
+Assim como na primeira apresentação preliminar, gostaria de encerrar com algumas notas sobre o projeto e um agradecimento.
 
-This time I would like to address my sincere Thank you to "Professor (Instructor) Charles Lanfear" from University of Washington. 
+Desta vez, gostaria de dirigir meus sinceros agradecimentos ao "Professor (Instrutor) Charles Lanfear" da Universidade de Washington.
 
-His lectures made available by him trough is [YouTube Chanel](https://www.youtube.com/channel/UC9o3UMJwzKDMmvo6lh_ppiA/featured) as changed and helped my code by so much.
+Suas palestras disponibilizadas por ele através do [YouTube Chanel] (https://www.youtube.com/channel/UC9o3UMJwzKDMmvo6lh_ppiA/featured) mudaram e ajudaram muito o meu código e a minha compreensão.
 
-You will be able to notice exactly that on the appendix.
+Isso é notavel no meu codigo disponivel no apêndice.
 
-What is my take on all of this. 
-  - I need to practice and study more when in comes to Programming in R.
-  - My Statistics background is not enough, even if the core should be left to the Data Scientist a Data Analyst needs to know more than the basic, it's a requirement.
+Qual é a minha opinião sobre tudo isto.
+
+  - Preciso praticar e estudar mais quando se trata de Programação em R.
   
-Where will I go from here:
-  - Well more projects for sure.
-  - Statistics is another one.
+  - Minha experiência em estatísticas não é suficiente, mesmo que o núcleo deva ser deixado para os Cientista de Dados, um analista de dados precisa saber mais do que o básico, é um requisito.
   
-## APPENDIX
-**From here on it get's boring for some, interesting for others**
+Para onde irei a partir daqui:
 
-I would appreciate that if you have any suggestion related to the project or code to address me at davesticteixeira@gmail.com.
+  - Bem mais projetos com certeza.
+  
+  - A estatística é outra das disciplinas que necessito de aprufundar.
+  
+## APÊNDICE
+**Daqui em diante vai ficar entediante para alguns, interessante para outros **
 
-The Code in R as I've written from the beginning, be advised that despite of finding new and better ways of writing I've chosen not to change anything that had been already written.
+Eu agradeceria que caso tenha alguma sugestão relacionada com o projeto ou código para me enviar um email através de davesticteixeira@gmail.com.
+
+O Código em R, conforme escrevi desde o início, esteja ciente de que, apesar de ter encontradp novas e melhores maneiras de escrever, optei por não alterar nada que já havia sido escrito.
 
 ```{r eval=FALSE}
 
@@ -860,7 +875,7 @@ bike_trip_subs_summer_weekdays %>%
 
 ```
 
-And here is the RMarkdown with all the visible code used to generate him.
+E aqui está o RMarkdown com todo o código visível usado para gerar a pagna de internete que está a ver.
 
 ---
 title: "Divvy Bikes 2019 Data Report"

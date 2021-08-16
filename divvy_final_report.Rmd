@@ -2,9 +2,7 @@
 title: "Divvy Bikes 2019 Data Report"
 author: "David Teixeira"
 date: "8/9/2021"
-output:
-  pdf_document: default
-  html_document: default
+output: html_document
 ---
 <style>
 body {
@@ -35,6 +33,20 @@ function(v) {
 options(scipen = 999999)
 
 ```
+## WHO AM I
+
+David Alexandre Ferreira Teixeira
+
+Junior Data Analyst
+
+[Linkedin](https://www.linkedin.com/in/davealexteixeira/)
+[Github](https://github.com/DavesTicTeixeira)
+Email: davesticteixeira@gmail.com
+
+I'm currently gathering experience on data analysis and on the first year of UNI on the Environmental Sciences.
+
+If you wish to get in touch with me please use the email provided.
+
 
 ## DIVVY BIKES
 **A BRIEF LOOK AT THE COMPANY**
@@ -126,7 +138,7 @@ mode_trip <- getmode(bike_trip$trip)
 
  - The mean trip in 2019 was **`r mean_trip` minutes** but the most usual time was actually **`r mode_trip` minutes.**
  
-  - The top 10 Starting and End Stations where:
+  - The top 10 Starting and End Stations were:
 
 ```{r Top 10 Stations, echo=FALSE, fig.show="hold", out.width="50%"}
 
@@ -429,7 +441,8 @@ knitr::kable(xy)
 ```
 **In terms of stations we can see as well that they do have their unique choices.**
 
-### DIVVY COMPARISON
+### DIVVY QUESTION 1
+
 **HOW ARE SUBSCRIBERS DIFFERENT FROM CASUALS?**
 
 So we can definitely conclude that based on the data available they do act different but only when it comes to weekdays vs weekends, and the time of the day chosen for riding. Which would imply that they probably have different reasons to use the bicycle.
