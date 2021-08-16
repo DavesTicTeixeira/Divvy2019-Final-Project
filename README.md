@@ -32,3 +32,7 @@ Inclui:
   Existem vários ficheiros em duplicado ING e PT
   
 Os ficheiros em Portugês e Inglês estão marcados como ENG ou PT
+
+Divvy 2019 Data Analisys Project
+ 
+Podes aceder á analise [aqui](https://davesticteixeira.github.io/Divvy2019-Final-Project/divvy_final_report_PT.html)
