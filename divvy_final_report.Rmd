@@ -6,7 +6,7 @@ output: html_document
 ---
 <style>
 body {
-text-align: justify}
+text-align: left}
 </style>
 
 ```{r run librarys, include=FALSE}
