@@ -6,11 +6,13 @@ library(hydroTSM)
 library(lubridate)
 
 # Add Data - Using read.csv
+# Changed the file reading from .csv to .zip so it reads directly and works best with github a disk usage
 
-Q1 <- read_csv("data/Divvy_Trips_2019_Q1.csv", col_names = TRUE)
-Q2 <- read_csv("data/Divvy_Trips_2019_Q2.csv", col_names = TRUE)
-Q3 <- read_csv("data/Divvy_Trips_2019_Q3.csv", col_names = TRUE)
-Q4 <- read_csv("data/Divvy_Trips_2019_Q4.csv", col_names = TRUE)
+
+Q1 <- read_csv("data/ZIP/Divvy_Trips_2019_Q1.zip", col_names = TRUE)
+Q2 <- read_csv("data/ZIP/Divvy_Trips_2019_Q2.zip", col_names = TRUE)
+Q3 <- read_csv("data/ZIP/Divvy_Trips_2019_Q3.zip", col_names = TRUE)
+Q4 <- read_csv("data/ZIP/Divvy_Trips_2019_Q4.zip", col_names = TRUE)
 
 # Correcting columns names from Q2 to match with others
 
