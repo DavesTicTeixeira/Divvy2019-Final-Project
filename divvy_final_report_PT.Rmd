@@ -52,9 +52,9 @@ Se desejar entrar em contato comigo, por favor, utilize o e-mail fornecido.
 ## DIVVY BIKES
 **UM BREVE OLHAR SOBRE A EMPRESA**
 
-  Divvy bikes é um sistema de compartilhamento de bicicletas em Chicago. Uma visão que o prefeito de Chicago, Richard M. Daley, trouxe de Paris - França em 2007.
+  Divvy bikes é um sistema de compartilhamento de bicicletas em Chicago. Uma visão que o Prefeito Richard M. Daley, trouxe de Paris - França em 2007.
 
-  Em 28 de junho de 2013, o Divvy foi lançado com 750 bicicletas em 75 estações em uma área de Loop ao norte até a Berwyn Ave, a oeste até a Kedzie Ave e ao sul até a 59th St.
+  Em 28 de junho de 2013, a Divvy foi lançada com 750 bicicletas e 75 estações em uma área circular a norte até a Berwyn Ave, a oeste até a Kedzie Ave e ao sul até a 59th St.
 
   Em setembro de 2019, Divvy tinha 594 estações em Chicago.
 
@@ -65,11 +65,11 @@ Se desejar entrar em contato comigo, por favor, utilize o e-mail fornecido.
 
   Esta apresentação serve como um trabalho de portfólio para o [Google Data Analytics - Certificado Profissional](https://www.coursera.org/lecture/foundations-data/welcome-to-the-google-data-analytics-certificate-aA1Wv) .
   
-  O Departamento de Marktiing tem como objectivo de converter ciclistas casuais em membros anuais.
+  O Departamento de Markting tem como objectivo converter membros casuais (MC) em membros anuais (MA).
   
   Para isso, fui encarregado de responder ao seguinte:
   
-  **Qual a difrença entre membros anuais (MA) e membros casuais (MC)?**
+  **Qual a diferença entre membros anuais (MA) e membros casuais (MC)?**
   
   O objetivo é responder à pergunta por meio dos dados fornecidos e sugerir ideias sobre a conversão de ciclistas.
   
@@ -86,36 +86,39 @@ number_of_columns_df <- length(df)
   
   O ano escolhido foi 2019.
   
-  Perto de 4 milhões (`r number_obs_df`) observações em colunas `r number_of_columns_df`.
+  Perto de 4 milhões (`r number_obs_df`) observações distribuídas em `r number_of_columns_df` colunas.
   
   Nomes das colunas:
   
-  ** `r colnames_list` **
+  `r colnames_list`
   
 ## INDEX
 **O QUE VAMOS VER **
   
   Vamos observar a população em geral antes de passarmos para o comportamento dos assinantes e, em seguida, o casual.
   
-  Analisaremos suas diferenças com base em números e faremos suposições sobre como e porque usam o serviço.
+  Analisarei suas diferenças com base em números e faremos suposições sobre como e porque usam o serviço.
   
-  Isso responderá à pergunta principal,
+  Isso irá hipoteticamente responder à pergunta principal,
   
   > Quais as diferenças entre os MC e os MA?
   
-  E no final irei oferecer algumas ações a fim de resolver o problema secundário,
+  No final irei tentar oferecer algumas ações com vista a resolver o problema secundário,
   
-  > Como transformar menbros casuais em membros assinantes.
+  > Como transformar MC em MA.
   
-  No apêndice desta apresentação, poderá encontrar os links para aceder ao codigo original em R usado para completar este relatório.
+  No apêndice desta apresentação, poderá encontrar os links para aceder ao código original em R usado para completar este relatório.
   
-  Isso significa que tudo o que é aqui apresentado será reproduzível.
+  Isso significa que tudo o que será aqui apresentado será reproduzível.
+  
+  (Nota: Devido ao facto de este relatório ser uma cópia do original em Inglês, algumas expressões poderam ser apresentadas em Inglês.)
   
 ### CLIENTES DIVVY
 **Observação à população em geral **
 
- - Em 2019, foram registadas **`r nrow (df)`** viagens individuais por toda Chicago.
- - Há uma tendência notável para os meses de verão com pico por volta do mês de Agosto.
+ - Em 2019, foram registadas **`r nrow (df)`** viagens individuais por toda a cidade de Chicago.
+ 
+ - Pode-se observar uma tendência de aumento de viagens na época de primavera de verão, com pico por volta do mês de Agosto.
  
  
 ```{r Passenger Trend, echo=FALSE}
@@ -124,19 +127,21 @@ day_tri_cum %>%
   ggplot(aes(x = Var1, y = Freq))+
   geom_point(alpha = 0)+
   geom_smooth(se = FALSE, method = "loess", formula = y~x)+
-  labs(title = "Passenger Trend 2019", x = "", y = "Total Trips")+
+  labs(title = "Utilização de Bicicletas em 2019", x = "Meses do Ano", y = "Total Viagens")+
   theme_bw()
 
 ```
 
 **Total de viagens por mês com o pico em agosto **
 
+(Gráfico de utilização de bicicletas por mês em 2019.)
+
 ```{r include=FALSE}
 mean_trip <- round(mean(bike_trip$trip),2)
 mode_trip <- getmode(bike_trip$trip)
 ```
 
- -A viagem média em 2019 foi de **`r mean_trip` minutos **, mas o tempo mais comum foi, na verdade, **` r mode_trip` minutos **
+ -A viagem média em 2019 foi de **`r mean_trip` minutos **, mas o tempo mais comum (mode) foi **` r mode_trip` minutos **
  
   **10 estações iniciais mais utilizadas**
   
@@ -145,7 +150,8 @@ mode_trip <- getmode(bike_trip$trip)
 head(arrange(top_10_stations_popgen_start, desc(Rides)), n = 10)
 
 ````
-
+(Estações de inicio de viagem mais utilizadas em 2019)
+  
   **10 estações finais mais utilizadas**
 
 ```{r echo=FALSE}
@@ -153,8 +159,9 @@ head(arrange(top_10_stations_popgen_start, desc(Rides)), n = 10)
 head(arrange(top_10_stations_popgen_end, desc(Rides)), n = 10)
 
 ```
+(Estações de fim de viagem mais utilizadas em 2019)
 
-**- Total de menbros assinantes vs casuais**
+**- Total MA vs MC**
  
 ```{r Subscribers vs Customers, echo=FALSE}
 
@@ -162,12 +169,13 @@ ggplot(subs_vs_cust, aes(x="", y=Freq, fill=Riders), color = "white") +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0)+
   theme_void()+
-  scale_fill_manual(values=c("#b4def0", "#ff0019"))
-  labs(title = "Total Riders distribution")
+  scale_fill_manual(values=c("#b4def0", "#ff0019"))+
+  labs(title = "Distribuição de Utilizadores", x = "MA", y = "MC")
 
 ```
+ (Tradução: Riders - Ciclistas / Customer - MC's / Subscriber - MA's)
  
-**Mais de 3 vezes assinantes versus clientes casuais **
+**Mais de 3 x assinantes versus casuais **
 
 
 ### DIVVY ASSINANTES
@@ -178,13 +186,17 @@ ggplot(subs_vs_cust, aes(x="", y=Freq, fill=Riders), color = "white") +
 bike_trip_subs_season %>%
   ggplot(aes(x = seasons, y = Rides))+
   geom_col(fill = "#3db7e4")+
-  labs(title = "Subscribers in 2019 per Season")+
+  labs(title = "MA's por estação em 2019", x = "Estações", y = "Viagens")+
   scale_y_continuous(labels = comma)+
-  theme_light()
+  theme_bw()
 
-```
+````
+
   
- - Como podemos ver na representação acima, a tendência original para o verão mantém-se.
+  
+  (Tradução: Winter - Inverno / Spring - Primavera / Summer - Verão / Autumn - Outono)
+  
+ - Como podemos ver no gráfico acima, a tendência original para o verão mantém-se.
   
 ```{r include=FALSE}
 mean_trip <- round(mean(bike_trip_subs$trip),2)
@@ -209,12 +221,15 @@ bike_trip_subs_summer_weekdays %>%
   ggplot(aes(x = Days, y = Rides))+
   geom_col(fill = "#3db7e4")+
   scale_y_continuous(labels = comma)+
-  labs(title = "Weekdays on Summer Months Total Rides", y = "Subscribers Rides")+
-  theme_light()
+  labs(title = "Utilização por dia da semana nos meses de Verão", y = "Viagens", x = "Dias da Semana")+
+  theme_bw()
 
 ```
+
+
+(Tradução - Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday - Segunda/Terça/Quarta/Quinta/Sexta/Sábado/Domingo)
  
- **É visível uma tendência de queda em direção ao fim de semana. Sendo o fim de semana os dias menos populares. **
+ **É observável uma tendência de queda em direção ao fim de semana. Sendo o Sábado e Domingo menos populares. **
 
 ```{r summer weekdays, echo=FALSE}
 
@@ -224,11 +239,15 @@ bike_trip %>%
          !weekday %in% c("Saturday", "Sunday")) %>%
   ggplot(aes(x = hour))+
   geom_bar(fill = "#3db7e4")+
-  labs(title = "Rides on Summer Weekdays for Subscribers",
-           x = "Hour of the Day",
-           y = "Total Rides")+
+  labs(title = "Viagens por Hora em Dias de Semana durante o Verão",
+           x = "Hora",
+           y = "Total Viagens")+
   scale_y_continuous(labels = comma)+
-  theme_light()
+  theme_bw()
+````
+
+
+````{r summer days hours, echo=FALSE}
 
 bike_trip %>% 
   filter(usertype == "Subscriber",
@@ -236,14 +255,13 @@ bike_trip %>%
          weekday == "Tuesday") %>%
   ggplot(aes(x = hour))+
   geom_bar(fill = "#3db7e4")+
-  labs(title = "Rides on Summer Tuesdays for Subscribers",
-           x = "Hour of the Day",
-           y = "Total Rides")+
+  labs(title = "Viagens por Hora ás Terças Feiras nos Meses de Verão",
+           x = "Hora",
+           y = "Total Viagens")+
   scale_y_continuous(labels = comma)+
-  theme_light()
+  theme_bw()
 
 ```
-
 
 **Observando o uso por hora nos dias de semana e depois às terças-feiras, podemos ver que a hora de ponta, manhã e tarde, é o horário do dia mais usado pelos assinantes. **
 
@@ -258,13 +276,14 @@ bike_trip %>%
     filter(usertype == "Customer") %>%
     ggplot(aes(x = season))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Casual Riders in 2019 per Season",
-         x = "Season",
-         y = "Total Rides")+
+   labs(title = "MC's por estação em 2019", x = "Estações", y = "Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
 
 ```
+
+
+(Tradução: Winter - Inverno / Spring - Primavera / Summer - Verão / Autumn - Outono)
 
 **Neste gráfico podemos ver claramente que a melhor época do ano é novamente os meses de verão **
 
@@ -276,13 +295,14 @@ bike_trip %>%
     
     ggplot(aes(x = weekday))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides per weekday on Summer for Casual Riders",
-         x = "Day of the Week",
-         y = "Total Rides")+
+    labs(title = "Utilização por dia da semana nos meses de Verão", y = "Viagens", x = "Dias da Semana")+
     scale_y_continuous(labels = comma)+
     theme_bw()
 
 ```
+
+
+(Tradução - Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday - Segunda/Terça/Quarta/Quinta/Sexta/Sábado/Domingo)
 
 **Aqui começamos a ver algo diferente, os ciclistas casuais parecem preferir os fins de semana e não os dias de semana. **
 
@@ -294,11 +314,15 @@ bike_trip %>%
            weekday %in% c("Saturday", "Sunday")) %>%
     ggplot(aes(x = hour))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides on Summer Weekends for Casual Riders",
-         x = "Hour of the Day",
-         y = "Total Rides")+
+    labs(title = "Viagens por Hora em Fins de Semana durante o Verão",
+             x = "Hora",
+             y = "Total Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
+````
+
+
+```{r, echo=FALSE}
 
 bike_trip %>% 
     filter(usertype == "Customer",
@@ -307,9 +331,9 @@ bike_trip %>%
     
     ggplot(aes(x = hour))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides on Summer Saturdays for Casual Riders",
-         x = "Hour of the Day",
-         y = "Total Rides")+
+    labs(title = "Viagens por Hora ao Sabado durante o Verão",
+             x = "Hora",
+             y = "Total Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
 
@@ -327,11 +351,18 @@ bike_trip %>%
            season == "summer") %>%
     ggplot(aes(x = weekday))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides per Weekday for Subscribers",
-         x = "Day of the Week",
-         y = "Total Rides")+
+    labs(title = "Viagens em Dias de Semana para MA's",
+         x = "Dia da Semana",
+         y = "Total Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
+````
+
+
+(Tradução - Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday - Segunda/Terça/Quarta/Quinta/Sexta/Sábado/Domingo)
+
+
+```{r, echo=FALSE}
 
 bike_trip %>% 
     filter(usertype == "Customer",
@@ -339,12 +370,16 @@ bike_trip %>%
   
     ggplot(aes(x = weekday))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides per Weekday for Casuals",
-         x = "Day of the Week",
-         y = "Total Rides")+
+    labs(title = "Viagens em Dias de Semana para MC's",
+         x = "Dia da Semana",
+         y = "Total Viagens")+
     theme_bw()
 
 ```
+
+
+(Tradução - Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday - Segunda/Terça/Quarta/Quinta/Sexta/Sábado/Domingo)
+
 
 **Esta é a nossa primeira descoberta: os assinantes preferem os dias de semana, os casuais preferem os fins de semana. **
 
@@ -356,11 +391,14 @@ bike_trip %>%
            !weekday %in% c("Saturday", "Sunday")) %>%
     ggplot(aes(x = hour))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides on Weekdays for Subscribers",
-         x = "Hour of the Day",
-         y = "Total Rides")+
+    labs(title = "Viagens Durante a Semana para MA's",
+         x = "Hora",
+         y = "Total de Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
+````
+
+```{r, echo=FALSE}
 
 bike_trip %>% 
     filter(usertype == "Customer",
@@ -368,9 +406,9 @@ bike_trip %>%
            !weekday %in% c("Saturday", "Sunday")) %>%
     ggplot(aes(x = hour))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides on Weekdays for Casuals",
-         x = "Hour of the Day",
-         y = "Total Rides")+
+    labs(title = "Viagens Durante a Semana para MC's",
+         x = "Hora",
+         y = "Total de Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
 
@@ -386,11 +424,19 @@ bike_trip %>%
            weekday %in% c("Saturday", "Sunday")) %>%
     ggplot(aes(x = hour))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides on Weekends for Subscribers per Hour",
-         x = "Hour of the Day",
-         y = "Total Rides")+
+    labs(title = "Viagens ao Fim de Semana para MA's durante o Verão",
+         x = "Hora",
+         y = "Total Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
+
+```
+
+
+(Tradução - Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday - Segunda/Terça/Quarta/Quinta/Sexta/Sábado/Domingo)
+
+
+```{r, echo=FALSE}
 
 bike_trip %>% 
     filter(usertype == "Customer",
@@ -398,61 +444,66 @@ bike_trip %>%
            weekday %in% c("Saturday", "Sunday")) %>%
     ggplot(aes(x = hour))+
     geom_bar(fill = "#3db7e4")+
-    labs(title = "Rides on Weekends for Casuals per Hour",
-         x = "Hour of the Day",
-         y = "Total Rides")+
+    labs(title = "Viagens ao Fim de Semana para MC's durante o Verão",
+         x = "Hora",
+         y = "Total Viagens")+
     scale_y_continuous(labels = comma)+
     theme_bw()
 
-
 ```
 
-**Mas se olharmos apenas para os fins de semana, podemos dizer que o Assinante age como um passageiro casual **
+**Mas se olharmos apenas para os fins de semana, podemos dizer que tanto o MA e o MC têm um comportamento idêntico **
+
+Estações Favoritas para MA's
 
 ```{r prefered stations for subs and cus, echo=FALSE}
 
-x <- bike_trip %>% 
+bike_trip %>% 
   filter(usertype == "Subscriber") %>% 
   select(from_station_name) %>% 
   count(from_station_name) %>% 
   arrange(desc(n)) %>% 
   head(10)
+````
 
-y <- bike_trip %>% 
+Estações Favoritas para MC's
+
+```{r, echo=FALSE}
+
+bike_trip %>% 
   filter(usertype == "Customer") %>% 
   select(from_station_name) %>% 
   count(from_station_name) %>% 
   arrange(desc(n)) %>% 
   head(10)
 
-xy <-as.data.frame(c(x,y))
+##xy <-as.data.frame(c(x,y))
 
-colnames(xy) <- c("Subs_Fav_Sattion", "Total_Subs", "Cust_Fav_Station", "Total_Cust")
+##colnames(xy) <- c("Subs_Fav_Sattion", "Total_Subs", "Cust_Fav_Station", "Total_Cust")
 
-knitr::kable(xy)
+##knitr::kable(xy)
 
 ```
+
 **Em termos de estações, podemos ver também que eles têm suas opções exclusivas. **
 
 ### DIVVY QUESTÃO NUMERO 1
 **COMO OS ASSINANTES SÃO DIFERENTES DOS CASUAIS? **
 
-Portanto, podemos concluir definitivamente que, com base nos dados disponíveis, eles agem de forma diferente, mas apenas quando se trata de dias da semana versus fins de semana, e a hora do dia escolhida para pedalar. Estes dados remetem para a hipotese que provalmente existem motivos diferentes para usar as bicicletas.
+Portanto, podemos concluir definitivamente, com base nos dados disponíveis, que os clientes agem de forma diferente, mas apenas quando se trata de dias da semana versus fins de semana. A hora do dia escolhida para pedalar é outra das divergências entre os dois. Estes dados remetem para a hipótese de que provavelmente existem motivos diferentes para o uso das bicicletas.
 
 Essas são suas principais diferenças. E, claro, como vimos acima, sua escolha de estações também diverge.
 
 ### CONCLUSÕES E SUGESTÕES
 **COMO PODEMOS TRANSFORMAR CASUAIS EM ASSINANTES? **
 
-Este foi o segundo problema / pergunta a ser respondido. Sendo o mais objectivo possivel, os dados mostram alguns aspectos do tipo de ciclista, mas só se pode supor.
+Este foi o segundo problema / pergunta a ser respondida. Sendo o mais objectivo possível, os dados mostram alguns aspectos do tipo de ciclista, mas só se pode supor sem investigar o contexto.
 
-Como recomendação seria sair e pesquisar os clientes e descobrir seus motivos.
+Como recomendação seria sair e pesquisar os clientes e descobrir seus motivos pessoais para utilização das bicicletas.
 
-No entanto, podemos dizer (teóricamente) que devido ao pico no verão, pode-se oferecer um simples passe de verão, de Junho a Agosto.
+No entanto, podemos dizer (teoricamente) que devido ao pico no verão, poderia-se oferecer um simples passe de verão, de Junho a Agosto.
 
-Eles desistiriam depois disso? Talvez não!
-
-Se olharmos aos dados que estão disponíveis neles podemos ver que a tendência do verão se estende até ao outono.
+De seguida temos dois cenários. No primeiro desistiam, no segundo cenário os novos assinantes muito provavelmente renovariam. E isto claro se tivermos em conta que a tendência de utilização no verão estende-se bem até ao final do Outono.
 
 É por isso que, após o Passe Especial de Verão, seria oferecida uma assinatura de um ano inteiro pelos próximos 9 meses com um desconto especial equivalente ao o que já havia pago pelo Passe Especial de Verão.
 
@@ -473,23 +524,28 @@ Assim como na primeira apresentação preliminar, gostaria de encerrar com algum
 
 Desta vez, gostaria de dirigir meus sinceros agradecimentos ao "Professor (Instrutor) Charles Lanfear" da Universidade de Washington.
 
-Suas palestras disponibilizadas por ele através do [YouTube Chanel] (https://www.youtube.com/channel/UC9o3UMJwzKDMmvo6lh_ppiA/featured) mudaram e ajudaram muito o meu código e a minha compreensão.
+Suas palestras disponibilizadas por ele através do [YouTube Chanel](https://www.youtube.com/channel/UC9o3UMJwzKDMmvo6lh_ppiA/featured) mudaram e ajudaram muito o meu código e a minha compreensão.
 
-Isso é notavel no meu codigo disponivel no apêndice.
+Isso é notável no meu código disponível na secção de apêndice.
 
 Qual é a minha opinião sobre tudo isto.
 
   - Preciso praticar e estudar mais quando se trata de Programação em R.
   
-  - Minha experiência em estatísticas não é suficiente, mesmo que o núcleo deva ser deixado para os Cientista de Dados, um analista de dados precisa saber mais do que o básico, é um requisito.
+  - Minha experiência em estatísticas não é suficiente, mesmo que o núcleo deva ser deixado para os Cientista de Dados, um Analista de Dados precisa saber mais do que o básico, é um requisito.
   
 Para onde irei a partir daqui:
 
-  - Bem mais projetos com certeza.
+  - Bem! Mais projetos com certeza.
   
   - A estatística é outra das disciplinas que necessito de aprofundar.
   
 ## APÊNDICE
 
+Caso pretenda consultar o código poderá faze-lo através do link.
 
-(inserir links directos para a pagina de github e respectivos códigos)
+[Código em R](http://www.github....)
+
+
+
+
